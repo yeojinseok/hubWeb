@@ -1,7 +1,10 @@
 import { createGlobalStyle } from 'styled-components'
-
+import styled from 'styled-components'
 import { ReactQueryDevtools } from 'react-query/devtools'
 import Router from './Router'
+import { ThemeProvider } from 'styled-components'
+import { theme } from './styles/theme'
+import { QueryClient, QueryClientProvider } from 'react-query'
 const GlobalStyle = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400&display=swap');
 html, body, div, span, applet, object, iframe,
@@ -68,18 +71,23 @@ a {
 
 const Wrap = styled.div`
   width: 100%;
-  height: 100%;
-  position: relative;
-  display: flex;
+  height: 100vh;
   overflow-x: hidden;
 `
+const queryClient = new QueryClient()
 
 function App() {
   return (
     <>
-      <ReactQueryDevtools initialIsOpen={true} />
-      <GlobalStyle />
-      <Router></Router>
+      <Wrap>
+        <QueryClientProvider client={queryClient}>
+          <ThemeProvider theme={theme}>
+            <ReactQueryDevtools initialIsOpen={true} />
+            <GlobalStyle />
+            <Router></Router>
+          </ThemeProvider>
+        </QueryClientProvider>
+      </Wrap>
     </>
   )
 }

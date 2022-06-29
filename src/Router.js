@@ -1,19 +1,17 @@
 import React, { useEffect } from 'react'
-import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import NavBar from './component/NavBar'
+import { Home } from './Home'
 
 export default function Router() {
   return (
     <>
-      <Wrap>
-        <BrowserRouter>
-          <Switch>
-            <Route path="/">
-              <Sidebar />
-              <Home />
-            </Route>
-          </Switch>
-        </BrowserRouter>
-      </Wrap>
+      <BrowserRouter>
+        <NavBar></NavBar>
+        <Routes>
+          <Route path="/" element={<Home></Home>} />
+        </Routes>
+      </BrowserRouter>
     </>
   )
 }
