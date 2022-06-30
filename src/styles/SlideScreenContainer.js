@@ -38,52 +38,45 @@ const Item = styled.img`
 export default function SlideScreenContainer({ scenes }) {
   const swiperRef = useRef(null)
   const innerRef = useRef(null)
-  const [swiperCurrentPosition, setSwiperCurrentPosition] = useState(-1)
+  const [swiperCurrentPosition, setSwiperCurrentPosition] = useState(0)
   const [loop, setLoop] = useState()
-
+  const [loading,setLoading] = useState(true)
   useEffect(() => {
-    // setSwiperCurrentPosition(scenes.length - 1)
-    click('plus')
     swiperRef.current.style.width = scenes ? `${scenes.length}00vw` : '0'
+    setLoading(false)
   }, [scenes])
 
-  useEffect(() => {
-    clearTimeout(loop)
-    const swiperLoop = setTimeout(() => {
-      click('plus')
-    }, 3000)
+  useEffect(() => { // infinite move
+    if(!loading){
+      console.log('loop 이전',swiperCurrentPosition)
+      // clearTimeout(loop)
+      const swiperLoop = setTimeout(() => {
+        click('plus')
+      }, 3000)
+      setLoop(swiperLoop)
 
-    setLoop(swiperLoop)
+      return clearTimeout(loop)
+    }
 
-    return clearTimeout(loop)
-  }, [scenes, setSwiperCurrentPosition, swiperCurrentPosition])
+  }, [scenes, loading,setSwiperCurrentPosition, swiperCurrentPosition])
 
-  useEffect(() => {
-    if (swiperCurrentPosition == 0)
-      swiperRef.current.style.transform = `translate(000vw)`
-    else if (swiperCurrentPosition <= -1) {
-      swiperRef.current.style.transform = `translate(${scenes.length - 1}00vw)`
-      setSwiperCurrentPosition(scenes.length - 1)
-    } else
+  useEffect(() => { // translate banner
       swiperRef.current.style.transform = `translate(-${swiperCurrentPosition}00vw)`
   }, [swiperCurrentPosition])
 
-  function click(action) {
-    console.log(swiperCurrentPosition)
-    console.log('click')
-
+  function click(action) { // click to move banner
+    clearTimeout(loop)
     setSwiperCurrentPosition(prev => {
       if (action == 'minus') {
-        if (prev <= 0) return -1
-        else return (prev -= 1)
+        if (prev-1 < 0) return scenes.length-1
+        else return (prev -1)
       } else if (action == 'plus') {
-        console.log('l;ength', scenes.length - 1)
-        if (prev >= scenes.length - 1) return 0
-        else return (prev += 1)
+        if (prev+1 > scenes.length - 1) return 0
+        else return (prev + 1)
       }
     })
-    console.log(swiperCurrentPosition)
-    clearTimeout(loop)
+    console.log('loop 이후',swiperCurrentPosition)
+
   }
 
   return (
