@@ -4,19 +4,20 @@ import { useEffect, useRef, useState } from 'react'
 import { useQuery } from 'react-query'
 import { fetchScene } from '../Api'
 const Wrapper = styled(motion.div)`
-  /* width: 100%;
-  height: 300px; */
   overflow: hidden;
   background-color: black;
   position: relative;
+  span {
+    display: none;
+  }
+  &:hover {
+    cursor: pointer;
+    span {
+      display: flex;
+    }
+  }
 `
 const SwiperContainer = styled.div`
-  /* -ms-overflow-style: none; IE and Edge */
-  /* scrollbar-width: none; Firefox */
-  /* overflow-y: scroll; */
-  /* &::-webkit-scrollbar {
-    display: none;
-  } */
   transition: transform 0.5s;
 `
 const SwiperInner = styled.div`
@@ -35,6 +36,28 @@ const Item = styled.img`
   z-index: -10;
 `
 
+const CircleButton = styled.span`
+  width: 50px;
+  height: 50px;
+  border-radius: 25px;
+  background-color: ${props => props.theme.grey.darkGrey};
+  color: white;
+  position: fixed;
+  top: 170px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+
+const Left = styled(CircleButton)`
+  left: 15px;
+`
+
+const Right = styled(CircleButton)`
+  right: 15px;
+`
+
 export default function SlideScreenContainer({ scenes }) {
   const swiperRef = useRef(null)
   const innerRef = useRef(null)
@@ -42,7 +65,6 @@ export default function SlideScreenContainer({ scenes }) {
   const [loop, setLoop] = useState()
 
   useEffect(() => {
-    // setSwiperCurrentPosition(scenes.length - 1)
     click('plus')
     swiperRef.current.style.width = scenes ? `${scenes.length}00vw` : '0'
   }, [scenes])
@@ -69,9 +91,6 @@ export default function SlideScreenContainer({ scenes }) {
   }, [swiperCurrentPosition])
 
   function click(action) {
-    console.log(swiperCurrentPosition)
-    console.log('click')
-
     setSwiperCurrentPosition(prev => {
       if (action == 'minus') {
         if (prev <= 0) return -1
@@ -82,7 +101,6 @@ export default function SlideScreenContainer({ scenes }) {
         else return (prev += 1)
       }
     })
-    console.log(swiperCurrentPosition)
     clearTimeout(loop)
   }
 
@@ -98,8 +116,8 @@ export default function SlideScreenContainer({ scenes }) {
             ))}
           </SwiperInner>
         </SwiperContainer>
-        <button onClick={() => click('minus')}> - </button>
-        <button onClick={() => click('plus')}> + </button>
+        <Left onClick={() => click('minus')}> {`<`}</Left>
+        <Right onClick={() => click('minus')}> {`>`}</Right>
       </Wrapper>
     </>
   )
