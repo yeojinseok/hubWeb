@@ -26,7 +26,7 @@ const SwiperInner = styled.div`
     transition-property: transform;
     overflow: hidden;
     width: 100%;
-    height: 300px;
+    height: 400px;
     display: flex;
   }
 `
@@ -43,7 +43,7 @@ const CircleButton = styled.span`
   background-color: ${props => props.theme.grey.darkGrey};
   color: white;
   position: fixed;
-  top: 170px;
+  top: 230px;
   text-align: center;
   display: flex;
   justify-content: center;
@@ -73,7 +73,7 @@ export default function SlideScreenContainer({ scenes }) {
     clearTimeout(loop)
     const swiperLoop = setTimeout(() => {
       click('plus')
-    }, 3000)
+    }, 6000)
 
     setLoop(swiperLoop)
 
@@ -91,17 +91,16 @@ export default function SlideScreenContainer({ scenes }) {
   }, [swiperCurrentPosition])
 
   function click(action) {
+    clearTimeout(loop)
     setSwiperCurrentPosition(prev => {
       if (action == 'minus') {
         if (prev <= 0) return -1
         else return (prev -= 1)
       } else if (action == 'plus') {
-        console.log('l;ength', scenes.length - 1)
         if (prev >= scenes.length - 1) return 0
         else return (prev += 1)
       }
     })
-    clearTimeout(loop)
   }
 
   return (
@@ -117,7 +116,7 @@ export default function SlideScreenContainer({ scenes }) {
           </SwiperInner>
         </SwiperContainer>
         <Left onClick={() => click('minus')}> {`<`}</Left>
-        <Right onClick={() => click('minus')}> {`>`}</Right>
+        <Right onClick={() => click('plus')}> {`>`}</Right>
       </Wrapper>
     </>
   )
