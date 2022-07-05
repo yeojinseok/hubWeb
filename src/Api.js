@@ -35,3 +35,18 @@ export async function fetchScene() {
   console.log(result)
   return result
 }
+export async function fetchMyScene() {
+  let userid = '1254792797622370383'
+  const result = fetch
+    ? await fetchReticulumAuthenticated(
+        `/api/v1/media/search?filter=my-scenes&source=scenes&user=${userid}`
+      )
+    : null
+  return result
+}
+
+export function fetchPayList() {
+  return fetch(`https://jsonplaceholder.typicode.com/posts`).then(response =>
+    response.json()
+  )
+}

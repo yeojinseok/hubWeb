@@ -1,8 +1,8 @@
 import { useQuery } from 'react-query'
-import { Link, Route, Routes, useMatch } from 'react-router-dom'
-import { fetchScene } from './Api'
-import MainSecction from './component/MainSeccstion'
-import SlideScreenContainer from './component/SlideScreenContainer'
+import { Link, Outlet, Route, Routes, useMatch } from 'react-router-dom'
+import { fetchScene } from '../Api'
+import MainSecction from '../component/MainSeccstion'
+import SlideScreenContainer from '../component/SlideScreenContainer'
 import {
   Col,
   Header,
@@ -10,11 +10,11 @@ import {
   Tap,
   Title,
   TitleText,
-} from './styles/Layout.js/HeaderLayout'
+} from '../styles/Layout.js/HeaderLayout'
 
 export default function Home() {
   const myspaceMatch = useMatch('/myspace')
-  const exploreMatch = useMatch('/explore')
+  const allspaceMatch = useMatch('/')
 
   const { isLoading: loading, data: scenes } = useQuery('Scene', fetchScene)
   return (
@@ -26,22 +26,21 @@ export default function Home() {
           <SlideScreenContainer scenes={scenes.entries}></SlideScreenContainer>
           <MainSecction>
             <Header>
-              <Col>
-                <Title>
-                  <TitleText>스페이스</TitleText>
-                </Title>
-              </Col>
               <Nav>
                 <Col>
-                  <Tap isActive={exploreMatch}>
-                    <Link to="/explore">체험</Link>
+                  <Title>
+                    <TitleText>Space</TitleText>
+                  </Title>
+                  <Tap isActive={allspaceMatch}>
+                    <Link to="/">All Space</Link>
                   </Tap>
                   <Tap isActive={myspaceMatch}>
-                    <Link to="/myspace">마이 스페이스 </Link>{' '}
+                    <Link to="/myspace">My Space </Link>{' '}
                   </Tap>
                 </Col>
               </Nav>
             </Header>
+            <Outlet context={'/'} />
           </MainSecction>
         </>
       )}

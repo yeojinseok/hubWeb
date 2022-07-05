@@ -2,10 +2,12 @@ import styled from 'styled-components'
 
 const Wrapper = styled.div`
   /* width:100%; */
-  min-width: 1200px;
+  width: 1200px;
+  max-width: 1200px;
   margin: 0 auto;
-  background-color: red;
   display: flex;
+  flex-direction: column;
+  padding: 100px 30px;
 `
 
 export default function MainSecction({ children }) {

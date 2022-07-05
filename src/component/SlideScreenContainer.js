@@ -7,6 +7,8 @@ const Wrapper = styled(motion.div)`
   overflow: hidden;
   background-color: black;
   position: relative;
+  min-height: 400px;
+  max-height: 400px;
   span {
     display: none;
   }
@@ -26,7 +28,6 @@ const SwiperInner = styled.div`
     transition-property: transform;
     overflow: hidden;
     width: 100%;
-    height: 400px;
     display: flex;
   }
 `
@@ -42,8 +43,8 @@ const CircleButton = styled.span`
   border-radius: 25px;
   background-color: ${props => props.theme.grey.darkGrey};
   color: white;
-  position: fixed;
-  top: 230px;
+  position: absolute;
+  top: 180px;
   text-align: center;
   display: flex;
   justify-content: center;

@@ -1,8 +1,8 @@
 export const theme = {
   bgColor: 'rgb(255, 255, 255)',
   textColor: 'rgb(0,0,0)',
-  accentBgColor: 'rgb(250, 4, 80)',
-  accentTextColor: 'rgb(153,153,153)',
+  accentBgColor: 'rgb(237, 246, 255)',
+  accentTextColor: 'rgb(0, 145, 229)',
 
   grey: {
     darkGrey: 'rgb(12, 21, 28)',
@@ -22,5 +22,11 @@ export const theme = {
     accentBgColor: 'rgb(244, 244, 244)',
     disableBorderColor: 'rgb(243, 243, 243)',
     disableTextColor: 'rgb(178, 178, 178)',
+  },
+  tap: {
+    bgColor: 'rgb(245, 246, 248)',
+    textColor: 'rgb(51, 61, 75)',
+    accentBgColor: 'rgb(229, 232, 234)',
+    accentTextColor: '',
   },
 }

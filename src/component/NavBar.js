@@ -3,10 +3,9 @@ import styled from 'styled-components'
 import { useMatch, Link } from 'react-router-dom'
 
 const Nav = styled(motion.div)`
-  display: flex;
-  justify-content: space-around;
+  /* padding: 0 50px; */
   width: 100%;
-  height: 45px;
+  min-height: 45px;
   font-size: 16px;
   color: ${props => props.theme.grey.lightGrey};
   background-color: ${props => props.theme.grey.darkGrey};
@@ -17,7 +16,7 @@ const Column = styled(motion.div)`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
+
   height: 100%;
   a {
     color: ${props => props.theme.grey.lightGrey};
@@ -32,6 +31,23 @@ const Column = styled(motion.div)`
     color: ${props => props.theme.bgColor};
   }
 `
+const ColumnWrapper = styled.div`
+  padding: 0 30px;
+  margin: 0 auto;
+  width: 100%;
+  height: 100%;
+  max-width: 1200px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* background-color: red; */
+`
+const ColumnContainer = styled.div`
+  display: flex;
+  div {
+    margin-right: 30px;
+  }
+`
 
 const hoverVariants = {
   hover: {
@@ -40,27 +56,42 @@ const hoverVariants = {
 }
 
 function NavBar() {
-  const mypageMatch = useMatch('/mypage')
+  const mypageMatch = useMatch('/mypage/:info')
+  const spaceMatch = useMatch('/space/:info')
   const homeMatch = useMatch('/')
 
   return (
     <>
       <Nav>
-        <Column
-          variants={hoverVariants}
-          whileHover="hover"
-          isactive={homeMatch}
-        >
-          <Link to="/">HOME</Link>
-        </Column>
+        <ColumnWrapper>
+          <ColumnContainer>
+            <Column
+              variants={hoverVariants}
+              whileHover="hover"
+              isactive={homeMatch}
+            >
+              <Link to="/">HOME</Link>
+            </Column>
+            <Column
+              variants={hoverVariants}
+              whileHover="hover"
+              isactive={spaceMatch}
+            >
+              <Link to="/space/myspace">Space</Link>
+            </Column>
+            <Column
+              variants={hoverVariants}
+              whileHover="hover"
+              isactive={mypageMatch}
+            >
+              <Link to="/mypage">Mypage</Link>
+            </Column>
+          </ColumnContainer>
 
-        <Column
-          variants={hoverVariants}
-          whileHover="hover"
-          isactive={mypageMatch}
-        >
-          <Link to="/mypage">Mypage</Link>
-        </Column>
+          <ColumnContainer>
+            <Column>login</Column>
+          </ColumnContainer>
+        </ColumnWrapper>
       </Nav>
     </>
   )
