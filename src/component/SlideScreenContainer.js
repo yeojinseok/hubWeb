@@ -7,8 +7,15 @@ const Wrapper = styled(motion.div)`
   overflow: hidden;
   background-color: black;
   position: relative;
+  height: 100%;
   min-height: 400px;
   max-height: 400px;
+  @media screen and (max-width: 830px) {
+    min-height: 300px;
+  }
+  @media screen and (max-width: 500px) {
+    min-height: 200px;
+  }
   span {
     display: none;
   }
@@ -32,6 +39,13 @@ const SwiperInner = styled.div`
   }
 `
 const Item = styled.img`
+  @media screen and (max-width: 830px) {
+    min-height: 300px;
+    width: 200px;
+  }
+  @media screen and (max-width: 500px) {
+    min-height: 200px;
+  }
   height: 500px;
   width: 100%;
   z-index: -10;

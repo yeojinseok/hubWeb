@@ -22,10 +22,12 @@ export const Circle = styled(motion.span)`
 `
 
 const Grid = styled.div`
+  margin: 0 auto;
+  @media screen and (max-width: 830px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
   @media screen and (max-width: 500px) {
-    flex-direction: column;
-    align-items: flex-end;
-    display: none;
+    grid-template-columns: repeat(1, 1fr);
   }
   margin-top: 30px;
   padding: 10px 0px;
@@ -36,11 +38,15 @@ const Grid = styled.div`
   margin-bottom: 40px;
 `
 const Box = styled(motion.div)`
+  max-width: 368px;
+  max-height: 200px;
+
   border-radius: 20px;
   height: 200px;
   position: relative;
   img {
     width: 100%;
+    height: 100%;
     border-radius: 20px;
   }
   margin: 0px;
